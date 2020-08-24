@@ -5,7 +5,7 @@ function createGraph(file) {
     const graph = new Graph();
 
     const lines = fs.readFileSync(file, 'utf-8').split('\n')
-    
+    let count = 0;
     lines.forEach(line => {
         const movie = JSON.parse(line);
         let people = [];
@@ -30,13 +30,21 @@ function createGraph(file) {
                 graph.addNode(person);
             }
         })
+
         people.forEach(person => {
             people.forEach(personToAdd => {
-                if (personToAdd !== person) {
-                    graph.addEdge(person, personToAdd, { movie: movie.title });
+                const node = graph.getNode(person);
+                let exists = false;
+                if(Object.keys(node) && node[personToAdd]) {
+                    exists = node[personToAdd].findIndex(title => title === movie.title) >= 0
+                }
+                if (personToAdd !== person && !exists) {
+                    graph.addEdge(person, personToAdd, movie.title );
                 }
             })
         })
+        count++;
+        console.log(`${count}/140402`)
     })
     return graph;
 }
