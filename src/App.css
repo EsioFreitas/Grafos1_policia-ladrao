@@ -11,6 +11,30 @@
 
 .tabuleiro {
   display: grid;
-  grid-template-columns: repeat(5, 0fr);
-  gap:  0px;
+  grid-template-columns: repeat(20, 0fr);
+  gap: 0px;
+}
+
+.start-btn {
+  width: 30%;
+  border: none;
+  box-shadow: 1px 1px 2px #353535;
+  background-color: #46b39d;
+  padding: 1rem;
+  border-radius: 5rem;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #f7f7f7;
+  text-align: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all .5s;
+}
+
+.start-btn:active,
+.start-btn:hover {
+  transition: all .5s;
+  box-shadow: 1px 1px 5px #353535;
+  background-color: #40a792;
 }
