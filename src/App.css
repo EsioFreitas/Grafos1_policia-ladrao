@@ -1,0 +1,16 @@
+.bloco {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  margin: 0.3rem;
+  box-shadow: 1px 1px 2px #35353590;
+  background: white;
+  cursor: pointer;
+}
+
+.tabuleiro {
+  display: grid;
+  grid-template-columns: repeat(5, 0fr);
+  gap:  0px;
+}
