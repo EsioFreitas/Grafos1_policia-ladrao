@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import './App.css';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import createGraph from './Graph/createGraph';
+import BFS from './Graph/BFS';
 
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
@@ -34,17 +34,44 @@ function App() {
   };
 
   const createObstatulo = (idx) => {
-    if (idx === 0 || idx === 99) return;
+    if (idx === 0 || idx === 199) return;
 
     const newTabuleiro = [...tabuleiro];
     newTabuleiro[idx] = (newTabuleiro[idx] + 1) % 2;
     setTabuleiro(newTabuleiro);
   };
 
+  const paint = (path) => {
+    let newTabuleiro = [...tabuleiro];
+    setInterval(() => {
+      if(path.length) {
+        console.log(newTabuleiro)
+        const position = path.shift();
+        newTabuleiro[position] = 4;
+        setTabuleiro(newTabuleiro);
+      } else {
+        clearInterval();
+      }
+    }, 500)
+  }
+
+  const findRobber = () => {
+    const path = [];
+    const graph = createGraph(tabuleiro, 20);
+    BFS(graph, 0, (currentNode) => {
+      path.push(currentNode.value);
+      if (currentNode.value === 199) {
+        return true;
+      }
+      return false;
+    })
+    paint(path);
+  }
+
   return (
     <div className='bg-light' style={{ height: '100vh' }}>
       <div className='container'>
-        <div class='text-center'>
+        <div className='text-center'>
           <h1 className='mb-3 pt-3' style={{ color: '#334752' }}>
             Projeto policia e ladrão
           </h1>
@@ -52,7 +79,7 @@ function App() {
 
         <div className=''>
           <div className='d-flex flex-column align-items-center'>
-            <div className='mb-3 start-btn'>Start</div>
+            <button className='mb-3 start-btn' onClick={findRobber}>Start</button>
             <div className='tabuleiro'>
               {tabuleiro.map((tab, i) => (
                 <button

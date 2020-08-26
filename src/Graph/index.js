@@ -1,8 +1,7 @@
 import Node from './Node';
 
 export default class Graph {
-    constructor(undirected = true) {
-        this.undirected = undirected;
+    constructor() {
         this.nodes = [];
     }
 
@@ -26,9 +25,5 @@ export default class Graph {
         const node2 = this.getNode(value2);
 
         node1.edges.push(node2);
-
-        if (this.undirected) {
-            node2.edges.push(node1);
-        }
     }
 }
