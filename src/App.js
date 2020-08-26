@@ -55,8 +55,9 @@ function App() {
             <div className='mb-3 start-btn'>Start</div>
             <div className='tabuleiro'>
               {tabuleiro.map((tab, i) => (
-                <div
+                <button
                   key={i}
+                  disabled={false}
                   className='bloco'
                   onClick={() => createObstatulo(i)}
                   style={{
