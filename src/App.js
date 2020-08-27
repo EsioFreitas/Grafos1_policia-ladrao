@@ -42,10 +42,9 @@ function App() {
   };
 
   const paint = (path) => {
-    const newTabuleiro = [...tabuleiro];
     setInterval(() => {
       if (path.length) {
-        console.log(newTabuleiro);
+        const newTabuleiro = [...tabuleiro];
         const position = path.shift();
         newTabuleiro[position] = 4;
         setTabuleiro(newTabuleiro);
