@@ -1,6 +1,6 @@
 export default class Node {
-    constructor(value) {
-        this.value = value;
-        this.edges = [];
-    }
+  constructor(value) {
+    this.value = value;
+    this.edges = [];
+  }
 }

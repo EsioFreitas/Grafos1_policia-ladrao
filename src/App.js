@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import createGraph from './Graph/createGraph';
 import BFS from './Graph/BFS';
@@ -42,18 +42,18 @@ function App() {
   };
 
   const paint = (path) => {
-    let newTabuleiro = [...tabuleiro];
+    const newTabuleiro = [...tabuleiro];
     setInterval(() => {
-      if(path.length) {
-        console.log(newTabuleiro)
+      if (path.length) {
+        console.log(newTabuleiro);
         const position = path.shift();
         newTabuleiro[position] = 4;
         setTabuleiro(newTabuleiro);
       } else {
         clearInterval();
       }
-    }, 500)
-  }
+    }, 300);
+  };
 
   const findRobber = () => {
     const path = [];
@@ -64,9 +64,9 @@ function App() {
         return true;
       }
       return false;
-    })
+    });
     paint(path);
-  }
+  };
 
   return (
     <div className='bg-light' style={{ height: '100vh' }}>
@@ -79,7 +79,9 @@ function App() {
 
         <div className=''>
           <div className='d-flex flex-column align-items-center'>
-            <button className='mb-3 start-btn' onClick={findRobber}>Start</button>
+            <button className='mb-3 start-btn' onClick={findRobber}>
+              Start
+            </button>
             <div className='tabuleiro'>
               {tabuleiro.map((tab, i) => (
                 <button
