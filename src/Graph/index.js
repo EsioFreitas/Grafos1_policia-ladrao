@@ -1,29 +1,51 @@
 import Node from './Node';
+import Queue from './Queue';
 
 export default class Graph {
   constructor() {
-    this.nodes = [];
+    this.nodes = {};
   }
 
   addNode(value) {
-    this.nodes.push(new Node(value));
+    this.nodes[value] = new Node();
   }
 
   removeNode(value) {
-    this.nodes = this.nodes.filter((node) => node.value !== value);
-    this.nodes.forEach((node) => {
-      node.edges = node.edges.filter((edge) => edge.value !== value);
+    delete this.nodes[value];
+    Object.keys(this.nodes).forEach((node) => {
+      this.nodes[node].edges = this.nodes[node].edges.filter((edge) => edge !== value);
     });
   }
 
   getNode(value) {
-    return this.nodes.find((node) => node.value === value);
+    return this.nodes[value];
   }
 
   addEdge(value1, value2) {
     const node1 = this.getNode(value1);
-    const node2 = this.getNode(value2);
 
-    node1.edges.push(node2);
+    node1.edges.push(value2);
+  }
+
+  BFS(startValue, currentFunction) {
+    let q = new Queue();
+    let explored = new Set();
+    q.enqueue(startValue);
+
+    explored.add(startValue);
+
+    while(!q.isEmpty()) {
+      let currentValue = q.dequeue();
+
+      const shouldEnd = currentFunction(currentValue);
+      if(shouldEnd) return;
+
+      this.nodes[currentValue].edges
+        .filter(n => !explored.has(n))
+        .forEach(n => {
+          explored.add(n);
+          q.enqueue(n);
+        })
+    }
   }
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import createGraph from './Graph/createGraph';
-import BFS from './Graph/BFS';
 
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
@@ -51,20 +50,17 @@ function App() {
       } else {
         clearInterval();
       }
-    }, 300);
+    }, 200);
   };
 
   const findRobber = () => {
     const path = [];
     const graph = createGraph(tabuleiro, 20);
-    BFS(graph, 0, (currentNode) => {
-      path.push(currentNode.value);
-      if (currentNode.value === 199) {
-        return true;
-      }
-      return false;
+    graph.BFS(0, (currentValue) => {
+      console.log(currentValue);
+      if(currentValue === 199) return true;
+      else return false;
     });
-    paint(path);
   };
 
   return (
