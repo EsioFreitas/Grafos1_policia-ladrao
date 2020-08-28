@@ -9,6 +9,7 @@ const LOSE = 2;
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [canStart, setCanStart] = useState(true);
   const [size] = useState(140);
   const [status, setStatus] = useState(LOADING);
 
@@ -22,6 +23,7 @@ function App() {
     newTabuleiro[0] = 2;
     newTabuleiro[size - 1] = 3;
     setTabuleiro(newTabuleiro);
+    setCanStart(true);
     setStatus(LOADING);
   };
 
@@ -81,6 +83,7 @@ function App() {
 
   const findRobber = () => {
     setIsRunning(true);
+    setCanStart(false);
     const path = [];
     const graph = createGraph(tabuleiro, 20);
     graph.BFS(0, (currentValue) => {
@@ -143,7 +146,7 @@ function App() {
               <button
                 className='mb-3 start-btn'
                 onClick={findRobber}
-                disabled={isRunning}
+                disabled={!canStart}
               >
                 Start
               </button>
