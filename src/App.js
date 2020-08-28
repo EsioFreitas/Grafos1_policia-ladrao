@@ -45,14 +45,14 @@ function App() {
     let count = 0;
     setInterval(() => {
       count++;
-      if (path[count-1] >= 0 || count === 1) {
+      if (path[count - 1] >= 0 || count === 1) {
         const usedPath = path.slice(0, count);
         const newTabuleiro = tabuleiro.map((value, index) => {
-          if(usedPath.includes(index)) {
+          if (usedPath.includes(index)) {
             return 4;
           }
           return value;
-        })
+        });
         setTabuleiro(newTabuleiro);
       } else {
         setIsRunning(false);
@@ -67,7 +67,7 @@ function App() {
     const graph = createGraph(tabuleiro, 20);
     graph.BFS(0, (currentValue) => {
       path.push(currentValue);
-      if(currentValue === 199) return true;
+      if (currentValue === 199) return true;
       else return false;
     });
     paint(path);
@@ -80,14 +80,38 @@ function App() {
           <h1 className='mb-3 pt-3' style={{ color: '#334752' }}>
             Projeto policia e ladrão
           </h1>
+          <p>
+            Mario adora convidar seus amigos para brincar em sua casa. Então
+            decidiu convidar seus amigos para brincarem de Polícia e Ladrão. O
+            jogo consiste em dois grupos, um grupo é a polícia e o outro é o
+            grupo dos ladrões. Os ladrões devem se esconder e a polícia deve
+            capturá-los. Caso a polícia consiga capturá-los e prendê-los os
+            ladrões perdem o jogo e caso a polícia não consiga capturá-los os
+            ladrões vencem o jogo.
+          </p>
+          <p>
+            Os ladrões irão se esconder sempre no último espaço do labirinto, Se
+            os policiais ficarem encurralados no labirinto os ladrões vencem e
+            poderão comemorar a fuga, mas se os policiais alcançarem o ultimo
+            espaço do labirinto os policiais serão os vencedores. Os policiais
+            poderão andar somente nos blocos não marcados.
+          </p>
         </div>
 
         <div className=''>
           <div className='d-flex flex-column align-items-center'>
-            <button className='mb-3 reset-btn' onClick={startTabuleiro} disabled={isRunning}>
+            <button
+              className='mb-3 reset-btn'
+              onClick={startTabuleiro}
+              disabled={isRunning}
+            >
               Reset
             </button>
-            <button className='mb-3 start-btn' onClick={findRobber} disabled={isRunning}>
+            <button
+              className='mb-3 start-btn'
+              onClick={findRobber}
+              disabled={isRunning}
+            >
               Start
             </button>
             <div className='tabuleiro'>
