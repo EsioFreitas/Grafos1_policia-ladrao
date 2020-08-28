@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import createGraph from './Graph/createGraph';
 
+const LOADING = 0;
+const WIN = 1;
+const LOSE = 2;
+
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
   const [size, setSize] = useState(140);
+  const [status, setStatus] = useState(LOADING);
 
   useEffect(() => {
     startTabuleiro();
@@ -16,6 +21,7 @@ function App() {
     newTabuleiro[0] = 2;
     newTabuleiro[size - 1] = 3;
     setTabuleiro(newTabuleiro);
+    setStatus(LOADING);
   };
 
   const getColor = (value) => {
@@ -44,21 +50,28 @@ function App() {
 
   const paint = (path) => {
     let count = 0;
+    let lose = true;
+
     const interval = setInterval(() => {
       count++;
       if (path[count - 1] >= 0 || count === 1) {
         const usedPath = path.slice(0, count);
         const newTabuleiro = tabuleiro.map((value, index) => {
           if (usedPath.includes(index)) {
+            if (value === 3) {
+              setStatus(WIN);
+              lose = false;
+            }
             return 4;
           }
           return value;
         });
-        console.log('0');
 
         setTabuleiro(newTabuleiro);
       } else {
-        console.log('1');
+        if (lose) {
+          setStatus(LOSE);
+        }
         setIsRunning(false);
         clearInterval(interval);
       }
@@ -75,6 +88,18 @@ function App() {
       else return false;
     });
     paint(path);
+  };
+
+  const getStatusText = () => {
+    switch (status) {
+      case WIN:
+        return 'Os policiais ganharam!';
+      case LOSE:
+        return 'Os bandidos ganharam';
+      case LOADING:
+      default:
+        return '...';
+    }
   };
 
   return (
@@ -137,7 +162,20 @@ function App() {
             </div>
           </div>
         </div>
-        <h1 className='text-center mt-2'>Os policiais ganharam!!!</h1>
+        <h1
+          className='text-center mt-2'
+          style={{
+            fontWeight: 'bold',
+            color:
+              status === WIN
+                ? '#F0CA4D'
+                : status === LOSE
+                ? '#DE4F3C'
+                : 'black',
+          }}
+        >
+          {getStatusText()}
+        </h1>
       </div>
     </div>
   );
