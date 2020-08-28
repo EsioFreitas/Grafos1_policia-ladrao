@@ -5,15 +5,16 @@ import createGraph from './Graph/createGraph';
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [size, setSize] = useState(140);
 
   useEffect(() => {
     startTabuleiro();
   }, []);
 
   const startTabuleiro = () => {
-    let newTabuleiro = new Array(140).fill(0);
+    let newTabuleiro = new Array(size).fill(0);
     newTabuleiro[0] = 2;
-    newTabuleiro[newTabuleiro.length - 1] = 3;
+    newTabuleiro[size - 1] = 3;
     setTabuleiro(newTabuleiro);
   };
 
@@ -34,7 +35,7 @@ function App() {
   };
 
   const createObstatulo = (idx) => {
-    if (idx === 0 || idx === 199) return;
+    if (idx === 0 || idx === size - 1) return;
 
     const newTabuleiro = [...tabuleiro];
     newTabuleiro[idx] = (newTabuleiro[idx] + 1) % 2;
@@ -43,7 +44,7 @@ function App() {
 
   const paint = (path) => {
     let count = 0;
-    setInterval(() => {
+    const interval = setInterval(() => {
       count++;
       if (path[count - 1] >= 0 || count === 1) {
         const usedPath = path.slice(0, count);
@@ -53,10 +54,13 @@ function App() {
           }
           return value;
         });
+        console.log('0');
+
         setTabuleiro(newTabuleiro);
       } else {
+        console.log('1');
         setIsRunning(false);
-        clearInterval();
+        clearInterval(interval);
       }
     }, 200);
   };
@@ -67,7 +71,7 @@ function App() {
     const graph = createGraph(tabuleiro, 20);
     graph.BFS(0, (currentValue) => {
       path.push(currentValue);
-      if (currentValue === 199) return true;
+      if (currentValue === size - 1) return true;
       else return false;
     });
     paint(path);
