@@ -11,7 +11,7 @@ function App() {
   }, []);
 
   const startTabuleiro = () => {
-    let newTabuleiro = new Array(200).fill(0);
+    let newTabuleiro = new Array(140).fill(0);
     newTabuleiro[0] = 2;
     newTabuleiro[newTabuleiro.length - 1] = 3;
     setTabuleiro(newTabuleiro);
@@ -78,7 +78,8 @@ function App() {
       <div className='container'>
         <div className='text-center'>
           <h1 className='mb-3 pt-3' style={{ color: '#334752' }}>
-            Projeto policia e ladrão
+            PROJETO <b style={{ color: '#F0CA4D' }}>POLICIA</b> E{' '}
+            <b style={{ color: '#DE4F3C' }}>LADRÃO</b>
           </h1>
           <p>
             Mario adora convidar seus amigos para brincar em sua casa. Então
@@ -87,33 +88,36 @@ function App() {
             grupo dos ladrões. Os ladrões devem se esconder e a polícia deve
             capturá-los. Caso a polícia consiga capturá-los e prendê-los os
             ladrões perdem o jogo e caso a polícia não consiga capturá-los os
-            ladrões vencem o jogo.
-          </p>
-          <p>
-            Os ladrões irão se esconder sempre no último espaço do labirinto, Se
-            os policiais ficarem encurralados no labirinto os ladrões vencem e
-            poderão comemorar a fuga, mas se os policiais alcançarem o ultimo
-            espaço do labirinto os policiais serão os vencedores. Os policiais
-            poderão andar somente nos blocos não marcados.
+            ladrões vencem o jogo. Os ladrões irão se esconder sempre no último
+            espaço do labirinto, Se os policiais ficarem encurralados no
+            labirinto os ladrões vencem e poderão comemorar a fuga, mas se os
+            policiais alcançarem o ultimo espaço do labirinto os policiais serão
+            os vencedores. Os policiais poderão andar somente nos blocos não
+            marcados.
           </p>
         </div>
 
         <div className=''>
           <div className='d-flex flex-column align-items-center'>
-            <button
-              className='mb-3 reset-btn'
-              onClick={startTabuleiro}
-              disabled={isRunning}
+            <div
+              className='d-flex justify-content-between'
+              style={{ width: '85%' }}
             >
-              Reset
-            </button>
-            <button
-              className='mb-3 start-btn'
-              onClick={findRobber}
-              disabled={isRunning}
-            >
-              Start
-            </button>
+              <button
+                className='mb-3 reset-btn'
+                onClick={startTabuleiro}
+                disabled={isRunning}
+              >
+                Reset
+              </button>
+              <button
+                className='mb-3 start-btn'
+                onClick={findRobber}
+                disabled={isRunning}
+              >
+                Start
+              </button>
+            </div>
             <div className='tabuleiro'>
               {tabuleiro.map((tab, i) => (
                 <button
@@ -129,6 +133,7 @@ function App() {
             </div>
           </div>
         </div>
+        <h1 className='text-center mt-2'>Os policiais ganharam!!!</h1>
       </div>
     </div>
   );
