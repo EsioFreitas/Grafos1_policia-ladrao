@@ -42,15 +42,21 @@ function App() {
   };
 
   const paint = (path) => {
+    let count = 0;
     setInterval(() => {
-      if (path.length) {
-        const newTabuleiro = [...tabuleiro];
-        const position = path.shift();
-        newTabuleiro[position] = 4;
+      count++;
+      if (path[count-1] >= 0 || count === 1) {
+        const usedPath = path.slice(0, count);
+        const newTabuleiro = tabuleiro.map((value, index) => {
+          if(usedPath.includes(index)) {
+            return 4;
+          }
+          return value;
+        })
         setTabuleiro(newTabuleiro);
       } else {
-        clearInterval();
         setIsRunning(false);
+        clearInterval();
       }
     }, 200);
   };
