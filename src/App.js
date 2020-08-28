@@ -4,6 +4,7 @@ import createGraph from './Graph/createGraph';
 
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     startTabuleiro();
@@ -49,18 +50,21 @@ function App() {
         setTabuleiro(newTabuleiro);
       } else {
         clearInterval();
+        setIsRunning(false);
       }
     }, 200);
   };
 
   const findRobber = () => {
+    setIsRunning(true);
     const path = [];
     const graph = createGraph(tabuleiro, 20);
     graph.BFS(0, (currentValue) => {
-      console.log(currentValue);
+      path.push(currentValue);
       if(currentValue === 199) return true;
       else return false;
     });
+    paint(path);
   };
 
   return (
@@ -74,14 +78,17 @@ function App() {
 
         <div className=''>
           <div className='d-flex flex-column align-items-center'>
-            <button className='mb-3 start-btn' onClick={findRobber}>
+            <button className='mb-3 reset-btn' onClick={startTabuleiro} disabled={isRunning}>
+              Reset
+            </button>
+            <button className='mb-3 start-btn' onClick={findRobber} disabled={isRunning}>
               Start
             </button>
             <div className='tabuleiro'>
               {tabuleiro.map((tab, i) => (
                 <button
                   key={i}
-                  disabled={false}
+                  disabled={isRunning}
                   className='bloco'
                   onClick={() => createObstatulo(i)}
                   style={{
