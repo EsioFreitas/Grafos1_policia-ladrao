@@ -9,11 +9,12 @@ const LOSE = 2;
 function App() {
   const [tabuleiro, setTabuleiro] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [size, setSize] = useState(140);
+  const [size] = useState(140);
   const [status, setStatus] = useState(LOADING);
 
   useEffect(() => {
     startTabuleiro();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startTabuleiro = () => {
