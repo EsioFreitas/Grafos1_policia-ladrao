@@ -1,4 +1,4 @@
-.bloco {
+.obstacle {
   width: 2rem;
   height: 2rem;
   border: 1px solid black;
@@ -19,7 +19,7 @@ button:focus {
   outline-width: 0;
 }
 
-.tabuleiro {
+.board {
   display: grid;
   grid-template-columns: repeat(20, 0fr);
   gap: 0px;
@@ -53,7 +53,7 @@ button:focus {
   width: 30%;
   border: none;
   box-shadow: 1px 1px 2px #353535;
-  background-color: #DE4F3C;
+  background-color: #de4f3c;
   border-radius: 5rem;
   letter-spacing: 0.5rem;
   text-transform: uppercase;

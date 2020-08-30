@@ -6,49 +6,54 @@ const LOADING = 0;
 const WIN = 1;
 const LOSE = 2;
 
+const BLOCK = 0;
+const OBSTACLE = 1;
+const POLICE = 2;
+const THIEF = 3;
+const PATH = 4;
+
 function App() {
-  const [tabuleiro, setTabuleiro] = useState([]);
+  const [board, setBoard] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
   const [canStart, setCanStart] = useState(true);
   const [size] = useState(140);
   const [status, setStatus] = useState(LOADING);
 
   useEffect(() => {
-    startTabuleiro();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    startBoard();
   }, []);
 
-  const startTabuleiro = () => {
-    let newTabuleiro = new Array(size).fill(0);
-    newTabuleiro[0] = 2;
-    newTabuleiro[size - 1] = 3;
-    setTabuleiro(newTabuleiro);
+  const startBoard = () => {
+    let newBoard = new Array(size).fill(BLOCK);
+    newBoard[0] = POLICE;
+    newBoard[size - 1] = THIEF;
+    setBoard(newBoard);
     setCanStart(true);
     setStatus(LOADING);
   };
 
   const getColor = (value) => {
     switch (value) {
-      case 1:
+      case OBSTACLE:
         return '#334752';
-      case 2:
+      case POLICE:
         return '#F0CA4D';
-      case 3:
+      case THIEF:
         return '#DE4F3C';
-      case 4:
+      case PATH:
         return '#46B39D';
-      case 0:
+      case BLOCK:
       default:
         return '#fff';
     }
   };
 
-  const createObstatulo = (idx) => {
+  const createObstacle = (idx) => {
     if (idx === 0 || idx === size - 1) return;
 
-    const newTabuleiro = [...tabuleiro];
-    newTabuleiro[idx] = (newTabuleiro[idx] + 1) % 2;
-    setTabuleiro(newTabuleiro);
+    const newBoard = [...board];
+    newBoard[idx] = (newBoard[idx] + 1) % 2;
+    setBoard(newBoard);
   };
 
   const paint = (path) => {
@@ -59,18 +64,18 @@ function App() {
       count++;
       if (path[count - 1] >= 0 || count === 1) {
         const usedPath = path.slice(0, count);
-        const newTabuleiro = tabuleiro.map((value, index) => {
+        const newBoard = board.map((value, index) => {
           if (usedPath.includes(index)) {
-            if (value === 3) {
+            if (value === THIEF) {
               setStatus(WIN);
               lose = false;
             }
-            return 4;
+            return PATH;
           }
           return value;
         });
 
-        setTabuleiro(newTabuleiro);
+        setBoard(newBoard);
       } else {
         if (lose) {
           setStatus(LOSE);
@@ -85,7 +90,7 @@ function App() {
     setIsRunning(true);
     setCanStart(false);
     const path = [];
-    const graph = createGraph(tabuleiro, 20);
+    const graph = createGraph(board, 20);
     graph.BFS(0, (currentValue) => {
       path.push(currentValue);
       if (currentValue === size - 1) return true;
@@ -99,7 +104,7 @@ function App() {
       case WIN:
         return 'Os policiais ganharam!';
       case LOSE:
-        return 'Os bandidos ganharam';
+        return 'Os ladrões ganharam';
       case LOADING:
       default:
         return '...';
@@ -138,7 +143,7 @@ function App() {
             >
               <button
                 className='mb-3 reset-btn'
-                onClick={startTabuleiro}
+                onClick={startBoard}
                 disabled={isRunning}
               >
                 Reset
@@ -151,13 +156,13 @@ function App() {
                 Start
               </button>
             </div>
-            <div className='tabuleiro'>
-              {tabuleiro.map((tab, i) => (
+            <div className='board'>
+              {board.map((tab, i) => (
                 <button
                   key={i}
                   disabled={isRunning}
-                  className='bloco'
-                  onClick={() => createObstatulo(i)}
+                  className='obstacle'
+                  onClick={() => createObstacle(i)}
                   style={{
                     backgroundColor: getColor(tab),
                   }}

@@ -20,25 +20,26 @@ Os ladrões irão se esconder sempre no último espaço do labirinto, Se os poli
 
 ### Aplicação assim que entra
 
-![01](img/01.png)
+![01](../img/01.png)
 
 ### Labirinto pintado
 
-![02](img/02.png)
+![02](../img/02.png)
 
 ### Ladrões ganharam
 
-![03](img/03.png)
+![03](../img/03.png)
 
 ### Policiais ganharam
 
-![04](img/04.png)
+![04](../img/04.png)
 
 ## Instalação
 
 **Linguagem**: JavaScript<br>
 
-Fizemos o deploy da aplicação para facilitar o uso dela. No entanto, caso queira rodá-la, rode as linhas de comando:
+Fizemos o deploy da aplicação para facilitar o uso dela [AQUI](https://policia-ladrao.netlify.app/).
+No entanto, caso queira rodá-la, rode as linhas de comando:
 
 ```ssh
 $ yarn install
