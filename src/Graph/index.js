@@ -1,51 +1,42 @@
-import Node from './Node';
-import Queue from './Queue';
+import Graph from './Graph';
 
-export default class Graph {
-  constructor() {
-    this.nodes = {};
-  }
+export default function createGraoh(tabuleiro, largura) {
+  const graph = new Graph();
 
-  addNode(value) {
-    this.nodes[value] = new Node();
-  }
+  tabuleiro.forEach((_, index) => {
+    graph.addNode(index);
+  });
 
-  removeNode(value) {
-    delete this.nodes[value];
-    Object.keys(this.nodes).forEach((node) => {
-      this.nodes[node].edges = this.nodes[node].edges.filter((edge) => edge !== value);
-    });
-  }
+  tabuleiro.forEach((position, index) => {
+    const collumn = index % largura;
+    const row = Math.floor(index / largura);
 
-  getNode(value) {
-    return this.nodes[value];
-  }
-
-  addEdge(value1, value2) {
-    const node1 = this.getNode(value1);
-
-    node1.edges.push(value2);
-  }
-
-  BFS(startValue, currentFunction) {
-    let q = new Queue();
-    let explored = new Set();
-    q.enqueue(startValue);
-
-    explored.add(startValue);
-
-    while(!q.isEmpty()) {
-      let currentValue = q.dequeue();
-
-      const shouldEnd = currentFunction(currentValue);
-      if(shouldEnd) return;
-
-      this.nodes[currentValue].edges
-        .filter(n => !explored.has(n))
-        .forEach(n => {
-          explored.add(n);
-          q.enqueue(n);
-        })
+    if (position !== 1) {
+      if (collumn !== 0) {
+        // olha esquerda
+        if (tabuleiro[index - 1] !== 1) {
+          graph.addEdge(index, index - 1);
+        }
+      }
+      if (collumn !== largura - 1) {
+        //olha direita
+        if (tabuleiro[index + 1] !== 1) {
+          graph.addEdge(index, index + 1);
+        }
+      }
+      if (row !== 0) {
+        // olha acima
+        if (tabuleiro[index - largura] !== 1) {
+          graph.addEdge(index, index - largura);
+        }
+      }
+      if (row !== tabuleiro.length / largura - 1) {
+        // olha abaixo
+        if (tabuleiro[index + largura] !== 1) {
+          graph.addEdge(index, index + largura);
+        }
+      }
     }
-  }
+  });
+  return graph;
 }

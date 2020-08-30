@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import createGraph from './Graph/createGraph';
+import createGraph from './Graph/index';
 
 const LOADING = 0;
 const WIN = 1;
@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     startTabuleiro();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startTabuleiro = () => {
