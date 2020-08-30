@@ -18,21 +18,44 @@ Os ladrões irão se esconder sempre no último espaço do labirinto, Se os poli
 
 ## Screenshots
 
+### Aplicação assim que entra
+
 ![01](img/01.png)
+
+### Labirinto pintado
+
 ![02](img/02.png)
+
+### Ladrões ganharam
+
 ![03](img/03.png)
+
+### Policiais ganharam
+
 ![04](img/04.png)
 
 ## Instalação
 
 **Linguagem**: JavaScript<br>
 
-Um browser.
+Fizemos o deploy da aplicação para facilitar o uso dela. No entanto, caso queira rodá-la, rode as linhas de comando:
+
+```ssh
+$ yarn install
+$ yarn start
+
+# pode ser usado também:
+
+$ npm install
+$ npm start
+```
 
 ## Uso
 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+1. Desenhe o labirinto do jogo clicando sobre o blocos;
+2. Clique em start começar o jogo;
+3. Caso queira outra partida, clique em restart.
 
 ## Outros
 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+Essa aplicação vou idealizada pela questão [1905 do URI](https://www.urionlinejudge.com.br/judge/pt/problems/view/1905)
