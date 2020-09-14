@@ -59,4 +59,4 @@ $ npm start
 
 ## Outros
 
-Essa aplicação vou idealizada pela questão [1905 do URI](https://www.urionlinejudge.com.br/judge/pt/problems/view/1905)
+Essa aplicação foi idealizada pela questão [1905 do URI](https://www.urionlinejudge.com.br/judge/pt/problems/view/1905)
